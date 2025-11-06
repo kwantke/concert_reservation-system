@@ -1,13 +1,13 @@
-package com.example.concertreservationsystem;
+package com.kokk.infrastructure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ConcertReservationSystemApplication {
+public class InfrastructureApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(ConcertReservationSystemApplication.class, args);
+    SpringApplication.run(InfrastructureApplication.class, args);
   }
 
 }
