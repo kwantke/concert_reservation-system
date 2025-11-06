@@ -11,14 +11,13 @@ public class ConcertSessionSeat {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Seat seat;
+  @Column(nullable = false)
+  private Long seatId;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private ConcertSession concertSession;
+  @Column(nullable = false)
+  private Long concertSessionId;
 
+  @Column(nullable = false)
   private boolean reserved;
 
   @Version

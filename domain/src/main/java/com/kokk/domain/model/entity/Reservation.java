@@ -14,17 +14,13 @@ public class Reservation extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private User user;
+  @Column(nullable = false)
+  private Long userId;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private ConcertSession concertSession;
+  @Column(nullable = false)
+  private Long concertSessionId;
 
   @Column(nullable = false)
   private int status;
 
-  @OneToMany(mappedBy = "reservation")
-  private List<ReservedSeat> reservedSeats;
 }

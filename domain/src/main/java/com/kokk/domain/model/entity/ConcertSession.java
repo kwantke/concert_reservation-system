@@ -14,13 +14,11 @@ public class ConcertSession extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Concert concert;
+  @Column(nullable = false)
+  private Long concertId;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Venue venue;
+  @Column(nullable = false)
+  private Long venueId;
 
   @Column(nullable = false)
   protected LocalDateTime start_date;

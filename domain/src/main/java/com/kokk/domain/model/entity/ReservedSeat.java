@@ -12,13 +12,11 @@ public class ReservedSeat extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Reservation reservation;
+  @Column(nullable = false)
+  private Long reservationId;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private ConcertSessionSeat concertSessionSeat;
+  @Column(nullable = false)
+  private Long concertSessionSeatId;
 
 
 }
