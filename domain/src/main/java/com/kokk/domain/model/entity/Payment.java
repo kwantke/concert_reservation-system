@@ -12,13 +12,11 @@ public class Payment extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne
-  @JoinColumn(nullable = false)
-  private Reservation reservation;
+  @Column(nullable = false)
+  private Long reservationId;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private User user;
+  @Column(nullable = false)
+  private Long userId;
 
   @Column(nullable = false)
   private int amount;

@@ -16,8 +16,7 @@ public class Seat extends AuditingFields {
   @Embedded
   private SeatNumber seatNumber;
 
-  @ManyToOne
-  @JoinColumn(nullable = false)
-  private Venue venue;
+  @Column(nullable = false)
+  private Long venueId;
 
 }

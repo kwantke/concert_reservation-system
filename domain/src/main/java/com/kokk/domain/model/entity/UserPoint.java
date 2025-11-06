@@ -12,8 +12,8 @@ public class UserPoint extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne
-  private User user;
+  @Column(nullable = false)
+  private Long userId;
 
   @Column(nullable = false)
   private int amount;
