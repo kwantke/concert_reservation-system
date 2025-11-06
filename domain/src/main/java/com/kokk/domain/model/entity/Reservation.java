@@ -2,7 +2,7 @@ package com.kokk.domain.model.entity;
 
 import com.kokk.domain.model.base.AuditingFields;
 import lombok.Getter;
-
+import jakarta.persistence.*;
 @Getter
 @Entity
 public class Reservation extends AuditingFields {

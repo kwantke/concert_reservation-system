@@ -1,9 +1,9 @@
 package com.kokk.domain.model.entity;
 
-import com.kokk.concert.domain.model.valueObject.SeatNumber;
 import com.kokk.domain.model.base.AuditingFields;
+import com.kokk.domain.model.valueObject.SeatNumber;
 import lombok.Getter;
-
+import jakarta.persistence.*;
 @Getter
 @Entity
 public class Seat extends AuditingFields {
