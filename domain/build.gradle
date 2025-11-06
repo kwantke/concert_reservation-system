@@ -2,10 +2,14 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
-  implementation project(':support')
+
   implementation project(':domain')
   implementation 'org.springframework.boot:spring-boot-starter-web'
 
-  // swagger
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0")
+  // JPA
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+  // MySQL
+  runtimeOnly 'com.mysql:mysql-connector-j' // DB 드라이버
+
 }
