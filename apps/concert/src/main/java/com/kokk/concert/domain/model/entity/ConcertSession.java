@@ -1,6 +1,6 @@
 package com.kokk.concert.domain.model.entity;
 
-import com.kokk.domain.model.base.AuditingFields;
+import com.kokk.support.domain.model.base.AuditingFields;
 import jakarta.persistence.*;
 import lombok.Getter;
 
