@@ -1,4 +1,4 @@
-package com.kokk.support.domain.model.base;
+package com.kokk.domain.model.base;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

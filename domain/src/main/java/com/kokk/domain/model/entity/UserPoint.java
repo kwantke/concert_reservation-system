@@ -1,25 +1,22 @@
-package com.kokk.support.domain.model.entity;
+package com.kokk.domain.model.entity;
 
+import com.kokk.domain.model.base.AuditingFields;
 import lombok.Getter;
 
 @Getter
 @Entity
-public class ConcertSessionSeat {
+public class UserPoint extends AuditingFields {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private Long seatId;
+  private Long userId;
 
   @Column(nullable = false)
-  private Long concertSessionId;
-
-  @Column(nullable = false)
-  private boolean reserved;
+  private int amount;
 
   @Version
   private int version;
-
 }

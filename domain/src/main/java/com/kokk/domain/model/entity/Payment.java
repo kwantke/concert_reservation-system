@@ -1,7 +1,7 @@
-package com.kokk.support.domain.model.entity;
+package com.kokk.domain.model.entity;
 
 
-import com.kokk.support.domain.model.base.AuditingFields;
+import com.kokk.domain.model.base.AuditingFields;
 import jakarta.persistence.*;
 import lombok.Getter;
 

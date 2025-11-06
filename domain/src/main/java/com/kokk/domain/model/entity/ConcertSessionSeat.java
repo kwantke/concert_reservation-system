@@ -1,23 +1,26 @@
-package com.kokk.support.domain.model.entity;
+package com.kokk.domain.model.entity;
 
-import com.kokk.support.domain.model.base.AuditingFields;
+import jakarta.persistence.Entity;
 import lombok.Getter;
-
+import jakarta.persistence.*;
 @Getter
 @Entity
-public class Reservation extends AuditingFields {
+public class ConcertSessionSeat {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private Long userId;
+  private Long seatId;
 
   @Column(nullable = false)
   private Long concertSessionId;
 
   @Column(nullable = false)
-  private int status;
+  private boolean reserved;
+
+  @Version
+  private int version;
 
 }

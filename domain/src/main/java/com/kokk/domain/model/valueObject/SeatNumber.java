@@ -1,4 +1,4 @@
-package com.kokk.support.domain.model.valueObject;
+package com.kokk.domain.model.valueObject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
