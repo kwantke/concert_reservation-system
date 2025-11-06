@@ -1,24 +1,23 @@
-package com.kokk.payment.domain.model.entity;
+package com.kokk.concert.domain.model.entity;
 
-
-import com.kokk.support.domain.model.base.AuditingFields;
+import com.kokk.domain.model.base.AuditingFields;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 @Getter
 @Entity
-public class Payment extends AuditingFields {
+public class UserPoint extends AuditingFields {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private Long reservationId;
-
-  @Column(nullable = false)
   private Long userId;
 
   @Column(nullable = false)
   private int amount;
+
+  @Version
+  private int version;
 }
