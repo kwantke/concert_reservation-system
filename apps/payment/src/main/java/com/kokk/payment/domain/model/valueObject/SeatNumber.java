@@ -1,4 +1,4 @@
-package com.kokk.domain.model.valueObject;
+package com.kokk.concert.domain.model.valueObject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

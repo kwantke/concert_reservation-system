@@ -1,4 +1,4 @@
-package com.kokk.domain.model.entity;
+package com.kokk.concert.domain.model.entity;
 
 import com.kokk.domain.model.base.AuditingFields;
 import jakarta.persistence.*;
@@ -6,12 +6,18 @@ import lombok.Getter;
 
 @Getter
 @Entity
-public class Concert extends AuditingFields {
+public class Payment extends AuditingFields {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @Column(nullable = false)
-  private String name;
+  private Long reservationId;
+
+  @Column(nullable = false)
+  private Long userId;
+
+  @Column(nullable = false)
+  private int amount;
 }
