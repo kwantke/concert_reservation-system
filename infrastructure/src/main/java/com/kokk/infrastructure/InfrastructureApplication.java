@@ -3,6 +3,7 @@ package com.kokk.infrastructure;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 
 @EntityScan(basePackages = "com.kokk.domain.model.entity") // 엔티티 스캔
