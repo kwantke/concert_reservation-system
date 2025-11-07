@@ -4,4 +4,7 @@ import com.kokk.domain.model.valueObject.WaitingQueue;
 
 public interface WaitingQueueRepository {
   WaitingQueue createWaitingQueue(WaitingQueue waitingQueue);
+
+  WaitingQueue findByToken(final String token);
+
 }

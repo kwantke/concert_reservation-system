@@ -16,4 +16,10 @@ public class WaitingQueueRepositoryAdapter implements WaitingQueueRepositoryPort
 
     return waitingQueueRepository.createWaitingQueue(waitingQueue);
   }
+
+  @Override
+  public WaitingQueue findByToken(String token) {
+    return waitingQueueRepository.findByToken(token);
+  }
+
 }

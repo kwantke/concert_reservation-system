@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 @Getter
 public enum WaitingQueueErrorCode implements ErrorCode {
-  WAITING_QUEUE_NOT_FOUND("해당 대기열 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND),
+  INVALID_WAITING_QUEUE("해당 대기열 정보를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST),
   ;
 
   private final String message;

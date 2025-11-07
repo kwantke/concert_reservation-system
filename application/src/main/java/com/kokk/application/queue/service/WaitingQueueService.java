@@ -1,5 +1,6 @@
 package com.kokk.application.queue.service;
 
+import com.kokk.application.queue.dto.response.GetWaitingQueueResponseDto;
 import com.kokk.application.queue.port.in.WaitingQueueServicePort;
 import com.kokk.application.queue.port.out.WaitingQueueRepositoryPort;
 import com.kokk.domain.model.provider.time.TimeProvider;
@@ -21,6 +22,12 @@ public class WaitingQueueService implements WaitingQueueServicePort {
 
   public WaitingQueue createWaitingQueue(final Long userId) {
     final String token = uuidGenerator.generate();
-    return waitingQueueRepositoryPort.createWaitingQueue(new WaitingQueue(userId, token, timeProvider.now()));
+
+    return waitingQueueRepositoryPort.createWaitingQueue(WaitingQueue.of(userId, token, timeProvider.now()));
+  }
+
+  @Override
+  public WaitingQueue getWaitingQueue(String token) {
+    return waitingQueueRepositoryPort.findByToken(token);
   }
 }
