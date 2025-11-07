@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,12 +37,39 @@ class WaitingQueueControllerTest {
 
     //When & Then
     mockMvc.perform(post("/api/v1/waiting-queues")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(dto))
-            )
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(dto)))
             .andExpect(status().isCreated())
             .andExpect(jsonPath("$.userId").exists())
             .andExpect(jsonPath("$.token").exists())
             .andExpect(jsonPath("$.createdAt").exists());
+  }
+
+  @DisplayName("정상적인 대기열 토큰으로 대기열 정보를 조회합니다.")
+  @Test
+  void givenValidToken_whenGetWaitingQueue_thenReturn200() throws Exception {
+    //Given
+    String token = "3cf72a1e-308c-448c-be07-52b13f7addaf";
+
+    //When & Then
+    mockMvc.perform(get("/api/v1/waiting-queues")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("QUEUE-TOKEN", token))
+            .andExpect(jsonPath("$.userId").exists())
+            .andExpect(jsonPath("$.status").exists())
+            .andExpect(jsonPath("$.waitingNum").exists());
+  }
+
+  @DisplayName("잘못된 대기열 토큰으로 대기열 정보를 조회시 400 응답을 반환합니다.")
+  @Test
+  void givenInvalidToken_whenGetWaitingQueue_thenReturn400() throws Exception {
+    //Given
+    String token = "3cf72a1e-308c-448c-be07-52b13f7addaf";
+
+    //When & Then
+    mockMvc.perform(get("/api/v1/waiting-queues")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .header("QUEUE-TOKEN", token))
+            .andExpect(status().isBadRequest());
   }
 }

@@ -1,0 +1,14 @@
+### 대기열 토큰 생성
+POST http://localhost:8080/api/v1/waiting-queues
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userId": 1
+}
+
+### 대기열 조회
+GET http://localhost:8080/api/v1/waiting-queues
+Accept: application/json
+Content-Type: application/json
+QUEUE-TOKEN: f0f1fa37-8641-44d8-8673-30fd31e6009f
