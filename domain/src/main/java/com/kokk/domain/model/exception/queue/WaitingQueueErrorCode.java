@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum WaitingQueueErrorCode implements ErrorCode {
   INVALID_WAITING_QUEUE("해당 대기열 정보를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST),
+  INVALID_ACTIVATED_QUEUE("해당 토큰은 활성화된 상태가 아닙니다.", HttpStatus.BAD_REQUEST),
   ;
 
   private final String message;

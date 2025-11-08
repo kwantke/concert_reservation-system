@@ -7,4 +7,6 @@ public interface WaitingQueueRepositoryPort {
   WaitingQueue createWaitingQueue(WaitingQueue waitingQueue);
 
   WaitingQueue findByToken(String token);
+
+  void checkActivatedQueueByToken(String token);
 }

@@ -27,7 +27,12 @@ public class WaitingQueueService implements WaitingQueueServicePort {
   }
 
   @Override
-  public WaitingQueue getWaitingQueue(String token) {
+  public WaitingQueue getWaitingQueue(final String token) {
     return waitingQueueRepositoryPort.findByToken(token);
+  }
+
+  @Override
+  public void checkActivatedQueue(final String token) {
+    waitingQueueRepositoryPort.checkActivatedQueueByToken(token);
   }
 }

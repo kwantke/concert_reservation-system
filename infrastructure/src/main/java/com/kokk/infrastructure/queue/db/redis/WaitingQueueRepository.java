@@ -7,4 +7,5 @@ public interface WaitingQueueRepository {
 
   WaitingQueue findByToken(final String token);
 
+  void checkActivatedQueueByToken(String token);
 }

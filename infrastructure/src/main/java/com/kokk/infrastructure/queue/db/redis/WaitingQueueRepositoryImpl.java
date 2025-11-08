@@ -19,8 +19,10 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
   private static final String WAITING_QUEUE_KEY = "waiting-queues";
   private static final String ACTIVE_QUEUE_KEY = "active-queues";
   private static final String TOKEN_META_KEY_PREFIX = "token-meta:";
+  private static final String HASH_KEY = "userId";
 
-  private static final long ACTIVE_QUEUE_TTL_SECONDS = 300; // 5분
+
+  private static final long ACTIVE_QUEUE_TTL_SECONDS = 3000; // 5분
 
   /**
    * Redis 대기열 생성
@@ -34,7 +36,7 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     redisTemplate.opsForZSet().add(WAITING_QUEUE_KEY, token, timestamp);
 
     // 대기열 메타 정보 저장 예) HSET token-meta:{token} userId "12345"
-    redisTemplate.opsForHash().put(metaKey(token), "userId",String.valueOf(waitingQueue.getUserId()));
+    redisTemplate.opsForHash().put(metaKey(token), HASH_KEY,String.valueOf(waitingQueue.getUserId()));
 
     return waitingQueue;
   }
@@ -59,28 +61,41 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
     throw new CoreException(WaitingQueueErrorCode.INVALID_WAITING_QUEUE);
   }
 
+  @Override
+  public void checkActivatedQueueByToken(String token) {
+    if (!isActive(token)) {
+      throw new CoreException(WaitingQueueErrorCode.INVALID_ACTIVATED_QUEUE);
+    }
+
+  }
+
+  /** 매타 키 설정 */
   private String metaKey(final String token) {
     return TOKEN_META_KEY_PREFIX + token;
   }
 
+  /** 대기열 토큰 순위 조회 */
   private Long findWaitingRank(final String token) {
     return redisTemplate.opsForZSet().rank(WAITING_QUEUE_KEY, token);
   }
 
+  /** 활성화 토큰 여부 조회 */
   private boolean isActive(final String token) {
     boolean member = redisTemplate.opsForSet().isMember(ACTIVE_QUEUE_KEY, token);
     return Boolean.TRUE.equals(member);
   }
 
+  /** 토큰 매타 정보 여부 조회 */
   //토큰의 userId를 가져오고, 없으면 도메인 예외
   private long getUserIdOrThrow(final String token) {
-    String userId = (String) redisTemplate.opsForHash().get(metaKey(token), "userId");
+    String userId = (String) redisTemplate.opsForHash().get(metaKey(token), HASH_KEY);
     if (userId == null) {
       throw new CoreException(WaitingQueueErrorCode.INVALID_WAITING_QUEUE);
     }
     return Long.parseLong(userId);
   }
 
+  /** 토큰으로 사용자 조회 후 WaitingQueue 객체 생성 */
   private WaitingQueue buildWaitingQueue(String token, Long waitingRank, QueueStatus queueStatus) {
     long userId = getUserIdOrThrow(token);
     return WaitingQueue.getWaitingQueue(userId, token, waitingRank, queueStatus);

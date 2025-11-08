@@ -6,5 +6,7 @@ import com.kokk.domain.model.valueObject.WaitingQueue;
 public interface WaitingQueueServicePort {
   WaitingQueue createWaitingQueue(final Long userId);
 
-  WaitingQueue getWaitingQueue(String token);
+  WaitingQueue getWaitingQueue(final String token);
+
+  void checkActivatedQueue(final String token);
 }

@@ -22,4 +22,9 @@ public class WaitingQueueRepositoryAdapter implements WaitingQueueRepositoryPort
     return waitingQueueRepository.findByToken(token);
   }
 
+  @Override
+  public void checkActivatedQueueByToken(String token) {
+    waitingQueueRepository.checkActivatedQueueByToken(token);
+  }
+
 }
