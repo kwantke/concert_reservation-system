@@ -21,5 +21,5 @@ public class ConcertSession extends AuditingFields {
   private Long venueId;
 
   @Column(nullable = false)
-  protected LocalDateTime start_date;
+  protected LocalDateTime startDate;
 }
