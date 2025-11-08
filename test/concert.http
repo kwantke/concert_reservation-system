@@ -3,3 +3,10 @@ GET http://localhost:8080/api/v1/concerts/1/sessions
 Accept: application/json
 Content-Type: application/json
 QUEUE-TOKEN: bef2f93e-a342-4fb0-93ff-98086e1727e7
+
+
+### 콘서트 세션 좌석 조회
+GET http://localhost:8080/api/v1/concerts/sessions/1/seats
+Accept: application/json
+Content-Type: application/json
+QUEUE-TOKEN: bef2f93e-a342-4fb0-93ff-98086e1727e7
