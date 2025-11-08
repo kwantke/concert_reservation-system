@@ -24,3 +24,9 @@ spring:
     redis:
       host: localhost
       port: 6379
+
+logging:
+  level:
+    org.hibernate.SQL: debug                # SQL
+    org.hibernate.orm.jdbc.bind: trace      # ← 바인드 파라미터 값
+    org.hibernate.orm.jdbc.extract: off   # (선택) 결과 추출 로깅

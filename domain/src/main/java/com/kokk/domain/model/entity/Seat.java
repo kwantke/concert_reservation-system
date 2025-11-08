@@ -12,10 +12,13 @@ public class Seat extends AuditingFields {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Embedded
-  private SeatNumber seatNumber;
-
   @Column(nullable = false)
   private Long venueId;
+
+  @Column(nullable = false)
+  private Character seatRow;
+
+  @Column(nullable = false)
+  private int seatColumn;
 
 }

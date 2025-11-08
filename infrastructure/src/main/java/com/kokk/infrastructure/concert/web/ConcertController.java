@@ -1,7 +1,9 @@
 package com.kokk.infrastructure.concert.web;
 
 import com.kokk.application.concert.dto.response.ConcertSessionResponseDto;
+import com.kokk.application.concert.dto.response.CustomConcertSessionSeatResponseDto;
 import com.kokk.application.concert.usecase.GetAvailableConcertSessionUseCase;
+import com.kokk.application.concert.usecase.GetConcertSessionSeatsUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import java.util.List;
 public class ConcertController {
 
   private final GetAvailableConcertSessionUseCase getAvailableConcertSessionUseCase;
+  private final GetConcertSessionSeatsUseCase getConcertSessionSeatsUseCase;
   @Operation(summary = "콘서트 세션 조회 - 예약 가능한 세션 조회")
   @GetMapping("/{concertId}/sessions")
   public ResponseEntity<List<ConcertSessionResponseDto>> getAvailableSessions(
@@ -28,4 +31,12 @@ public class ConcertController {
     return ResponseEntity.ok(concertSessionResponseDtos);
   }
 
+  @Operation(summary = "콘서트 좌석 조회")
+  @GetMapping("/sessions/{concertSessionId}/seats")
+  public ResponseEntity<List<CustomConcertSessionSeatResponseDto>> getConcertSeats(
+          @PathVariable Long concertSessionId
+  ) {
+    List<CustomConcertSessionSeatResponseDto> result = getConcertSessionSeatsUseCase.getConcertSessionSeats(concertSessionId);
+    return ResponseEntity.ok(result);
+  }
 }
