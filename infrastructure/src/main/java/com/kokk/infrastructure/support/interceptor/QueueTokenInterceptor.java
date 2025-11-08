@@ -1,4 +1,4 @@
-package com.kokk.infrastructure.support;
+package com.kokk.infrastructure.support.interceptor;
 
 import com.kokk.application.queue.port.in.WaitingQueueServicePort;
 import com.kokk.domain.model.exception.CoreException;

@@ -16,13 +16,11 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
 
   private final RedisTemplate<String, Object> redisTemplate;
 
-  private static final String WAITING_QUEUE_KEY = "waiting-queues";
-  private static final String ACTIVE_QUEUE_KEY = "active-queues";
-  private static final String TOKEN_META_KEY_PREFIX = "token-meta:";
+  static final String WAITING_QUEUE_KEY = "waiting-queues";
+  static final String ACTIVE_QUEUE_KEY = "active-queues";
+  static final String TOKEN_META_KEY_PREFIX = "token-meta:";
   private static final String HASH_KEY = "userId";
-
-
-  private static final long ACTIVE_QUEUE_TTL_SECONDS = 3000; // 5분
+  static final long ACTIVE_QUEUE_TTL_SECONDS = 300; // 5분
 
   /**
    * Redis 대기열 생성

@@ -1,6 +1,6 @@
 package com.kokk.infrastructure.config;
 
-import com.kokk.infrastructure.support.QueueTokenInterceptor;
+import com.kokk.infrastructure.support.interceptor.QueueTokenInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

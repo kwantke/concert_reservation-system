@@ -9,4 +9,6 @@ public interface WaitingQueueRepositoryPort {
   WaitingQueue findByToken(String token);
 
   void checkActivatedQueueByToken(String token);
+
+  int batchActivate(int count);
 }
