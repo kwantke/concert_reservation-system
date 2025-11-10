@@ -1,0 +1,20 @@
+package com.kokk.domain.validation;
+
+import com.kokk.domain.model.entity.ConcertSessionSeat;
+import com.kokk.domain.model.exception.CoreException;
+import com.kokk.domain.model.exception.ErrorCode;
+import com.kokk.domain.model.exception.concert.ConcertErrorCode;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+public class ReservationValidation {
+
+  public void validateSeatsExist(List<Long> requestSeatIds, List<ConcertSessionSeat> concertSessionSeats) {
+    // 예약 가능한 좌석 여부 확인
+    if (requestSeatIds.size() != concertSessionSeats.size()) {
+      throw new CoreException(ConcertErrorCode.UNAVAILABLE_CONCERT_SESSION_SEAT);
+    }
+  }
+}

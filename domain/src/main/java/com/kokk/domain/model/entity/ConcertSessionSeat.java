@@ -18,9 +18,15 @@ public class ConcertSessionSeat {
   private Long concertSessionId;
 
   @Column(nullable = false)
+  private Long price;
+
+  @Column(nullable = false)
   private boolean reserved;
 
   @Version
   private int version;
 
+  public void reserve() {
+    this.reserved = true;
+  }
 }

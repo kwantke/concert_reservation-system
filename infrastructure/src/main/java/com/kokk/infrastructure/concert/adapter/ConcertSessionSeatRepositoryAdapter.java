@@ -1,6 +1,7 @@
 package com.kokk.infrastructure.concert.adapter;
 
 import com.kokk.application.concert.port.out.ConcertSessionSeatRepositoryPort;
+import com.kokk.domain.model.entity.ConcertSessionSeat;
 import com.kokk.domain.model.valueObject.CustomConcertSessionSeat;
 import com.kokk.infrastructure.concert.db.ConcertSessionSeatRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +22,15 @@ public class ConcertSessionSeatRepositoryAdapter implements ConcertSessionSeatRe
             new Sort.Order(Sort.Direction.ASC, "seatColumn")
     );
     return concertSessionSeatRepository.findConcertSessionSeatsByConcertSessionId(concertSessionId, sort);
+  }
+
+  @Override
+  public List<ConcertSessionSeat> findByConcertSessionIdAndSeatIdInAndReservedFalse(Long concertSessionId, List<Long> seatIds) {
+    return concertSessionSeatRepository.findByConcertSessionIdAndSeatIdInAndReservedFalse(concertSessionId, seatIds);
+  }
+
+  @Override
+  public void saveAll(List<ConcertSessionSeat> concertSessionSeats) {
+    concertSessionSeatRepository.saveAll(concertSessionSeats);
   }
 }
