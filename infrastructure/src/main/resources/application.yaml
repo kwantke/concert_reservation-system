@@ -24,7 +24,23 @@ spring:
     redis:
       host: localhost
       port: 6379
-
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: concert-consumer-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: earliest # 토픽을 읽을때 가장 예전 offset부터 읽기
+      enable-auto-commit: false # consumer에서 응답 처리를 수동 ack 모드 사용 (ack.acknowledge() 필요)
+      properties:
+        spring.json.trusted.packages: "com.kokk.application.kafka,*" # @KafkaListener 이벤트 클래스가 들어있는 패키지를 신뢰 패키지로 등록
+    topic:
+      reserve: concert-reserve
+    listener:
+      ack-mode: MANUAL # 배치 처리 안 쓰면 기본 그대로
 logging:
   level:
     org.hibernate.SQL: debug                # SQL

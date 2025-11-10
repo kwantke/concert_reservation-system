@@ -14,4 +14,8 @@ dependencies {
 
   // Jackson : JsonFormat 사용
   implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+  //Kafka
+  implementation 'org.springframework.kafka:spring-kafka'
+
 }
