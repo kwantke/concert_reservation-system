@@ -1,5 +1,7 @@
 package com.kokk.domain.model.entity;
 
+import com.kokk.domain.model.exception.CoreException;
+import com.kokk.domain.model.exception.concert.ConcertErrorCode;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import jakarta.persistence.*;
@@ -11,8 +13,9 @@ public class ConcertSessionSeat {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
-  private Long seatId;
+  @ManyToOne(fetch = FetchType.LAZY) // 연관관계 설정
+  @JoinColumn(name = "seat_id", nullable = false)
+  private Seat seat;
 
   @Column(nullable = false)
   private Long concertSessionId;
@@ -27,6 +30,9 @@ public class ConcertSessionSeat {
   private int version;
 
   public void reserve() {
+    if(reserved) {
+      throw new CoreException(ConcertErrorCode.UNAVAILABLE_CONCERT_SESSION_SEAT);
+    }
     this.reserved = true;
   }
 }

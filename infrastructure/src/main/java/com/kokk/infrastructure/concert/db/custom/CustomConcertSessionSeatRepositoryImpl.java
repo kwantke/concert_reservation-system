@@ -53,7 +53,7 @@ public class CustomConcertSessionSeatRepositoryImpl extends QueryDslSupportWrapp
             .select(Projections.bean(
                     CustomConcertSessionSeat.class,
                     ccs.id,
-                    ccs.seatId,
+                    ccs.seat.id.as("seatId"),
                     ccs.concertSessionId,
                     ccs.reserved,
                     seat.seatRow,
@@ -61,7 +61,7 @@ public class CustomConcertSessionSeatRepositoryImpl extends QueryDslSupportWrapp
 
             ))
             .from(ccs)
-            .innerJoin(seat).on(seat.id.eq(ccs.seatId))
+            .innerJoin(ccs.seat, seat)
             .where(builder)
       ;
     toOrderSpecifiers(query, sort, ccs, seat);
@@ -88,7 +88,7 @@ public class CustomConcertSessionSeatRepositoryImpl extends QueryDslSupportWrapp
       switch (p) {
         // ConcertSessionSeat 쪽
         case "id" -> specs.add(asc ? css.id.asc() : css.id.desc());
-        case "seatId" -> specs.add(asc ? css.seatId.asc() : css.seatId.desc());
+        case "seatId" -> specs.add(asc ? css.seat.id.asc() : css.seat.id.desc());
         case "concertSessionId" -> specs.add(asc ? css.concertSessionId.asc() : css.concertSessionId.desc());
         case "reserved" -> specs.add(asc ? css.reserved.asc() : css.reserved.desc());
 
