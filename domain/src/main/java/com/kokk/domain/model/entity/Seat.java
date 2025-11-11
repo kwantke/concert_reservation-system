@@ -21,4 +21,7 @@ public class Seat extends AuditingFields {
   @Column(nullable = false)
   private int seatColumn;
 
+  public String toSeatNum() {
+    return this.seatRow.toString() + this.seatColumn;
+  }
 }

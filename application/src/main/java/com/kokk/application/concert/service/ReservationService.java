@@ -42,7 +42,7 @@ public class ReservationService implements ReservationServicePort {
 
     Reservation reservation = reserveConcertSeat(concertSessionId, userId, concertSessionSeats);
 
-    return ReserveConcertResponseDto.from(reservation);
+    return ReserveConcertResponseDto.from(reservation, concertSessionSeats);
   }
 
   @Override
@@ -65,7 +65,7 @@ public class ReservationService implements ReservationServicePort {
     Long reservationId = reservation.getId();
 
     // 예약 좌석 정보 저장
-    saveReservedSeat(reservationId, concertSessionSeats);
+    saveReservedSeat(reservation, concertSessionSeats);
 
     // 콘서트 시즌 좌석 예약된 상태로 업데이트
     updateConcertSessionSeat(concertSessionSeats);
@@ -100,9 +100,9 @@ public class ReservationService implements ReservationServicePort {
   }
 
   /** 예약 죄석 정보 저장*/
-  private void saveReservedSeat(Long reservationId, List<ConcertSessionSeat> concertSessionSeats) {
+  private void saveReservedSeat(Reservation reservation, List<ConcertSessionSeat> concertSessionSeats) {
     for (ConcertSessionSeat css : concertSessionSeats) {
-      ReservedSeat reservedSeat = ReservedSeat.of(reservationId, css.getConcertSessionId());
+      ReservedSeat reservedSeat = ReservedSeat.of(reservation, css);
       reservedSeatRepositoryPort.save(reservedSeat);
     }
   }
