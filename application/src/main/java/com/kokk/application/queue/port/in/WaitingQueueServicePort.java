@@ -11,4 +11,6 @@ public interface WaitingQueueServicePort {
   void checkActivatedQueue(final String token);
 
   int batchActivate(int i);
+
+  void expireActiveQueue(String token);
 }

@@ -11,4 +11,6 @@ public interface WaitingQueueRepositoryPort {
   void checkActivatedQueueByToken(String token);
 
   int batchActivate(int count);
+
+  void removeActiveQueue(String token);
 }

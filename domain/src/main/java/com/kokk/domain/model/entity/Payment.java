@@ -3,8 +3,14 @@ package com.kokk.domain.model.entity;
 
 import com.kokk.domain.model.base.AuditingFields;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Getter
 @Entity
 public class Payment extends AuditingFields {
@@ -20,5 +26,13 @@ public class Payment extends AuditingFields {
   private Long userId;
 
   @Column(nullable = false)
-  private int amount;
+  private Long amount;
+
+  public static Payment of(Long reservationId, Long userId, Long amount) {
+    return Payment.builder()
+            .reservationId(reservationId)
+            .userId(userId)
+            .amount(amount)
+            .build();
+  }
 }

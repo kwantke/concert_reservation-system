@@ -8,6 +8,8 @@ import com.kokk.application.concert.port.out.ReservationRepositoryPort;
 import com.kokk.application.concert.port.out.ReservedSeatRepositoryPort;
 import com.kokk.domain.event.ConcertReservedEvent;
 import com.kokk.domain.event.ReservationEventPublisher;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.concert.ConcertErrorCode;
 import com.kokk.domain.model.entity.ConcertSessionSeat;
 import com.kokk.domain.model.entity.Reservation;
 import com.kokk.domain.model.entity.ReservedSeat;
@@ -41,6 +43,19 @@ public class ReservationService implements ReservationServicePort {
     Reservation reservation = reserveConcertSeat(concertSessionId, userId, concertSessionSeats);
 
     return ReserveConcertResponseDto.from(reservation);
+  }
+
+  @Override
+  public Reservation getReservation(Long reservationId) {
+    return reservationRepositoryPort.findById(reservationId)
+            .orElseThrow(() -> new CoreException(ConcertErrorCode.INVALID_RESERVATION));
+  }
+
+  @Override
+  public void updateReservation(Reservation reservation) {
+    reservation.updateReservationStatus();
+    reservationRepositoryPort.save(reservation);
+
   }
 
 
@@ -77,7 +92,7 @@ public class ReservationService implements ReservationServicePort {
             .mapToLong(ConcertSessionSeat::getPrice)
             .sum();
 
-    Reservation reservationEntity = Reservation.of(concertSessionId, userId, totalPrice, ReservationStatus.TEMPORARY_RESERVED.getStatusCode());
+    Reservation reservationEntity = Reservation.of(concertSessionId, userId, totalPrice, ReservationStatus.TEMPORARY_RESERVED);
 
     Reservation result = reservationRepositoryPort.save(reservationEntity);
 

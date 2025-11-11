@@ -67,6 +67,14 @@ public class WaitingQueueRepositoryImpl implements WaitingQueueRepository {
 
   }
 
+  @Override
+  public void removeActiveQueue(String token) {
+    // 활성화 대기열에서 제거
+    redisTemplate.opsForSet().remove(ACTIVE_QUEUE_KEY, token);
+    // 대기열 메타 정보 삭제
+    redisTemplate.delete(TOKEN_META_KEY_PREFIX + token);
+  }
+
   /** 매타 키 설정 */
   private String metaKey(final String token) {
     return TOKEN_META_KEY_PREFIX + token;

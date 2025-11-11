@@ -15,7 +15,7 @@ public record ReserveConcertResponseDto(
             reservation.getConcertSessionId(),
             reservation.getUserId(),
             reservation.getTotalPrice(),
-            ReservationStatus.fromDbValue(reservation.getStatus()).getStatusName()
+            reservation.getStatus().getStatusName()
     );
   }
 }

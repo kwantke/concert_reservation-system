@@ -39,4 +39,9 @@ public class WaitingQueueService implements WaitingQueueServicePort {
   public int batchActivate(int count) {
     return waitingQueueRepositoryPort.batchActivate(count);
   }
+
+  @Override
+  public void expireActiveQueue(String token) {
+    waitingQueueRepositoryPort.removeActiveQueue(token);
+  }
 }

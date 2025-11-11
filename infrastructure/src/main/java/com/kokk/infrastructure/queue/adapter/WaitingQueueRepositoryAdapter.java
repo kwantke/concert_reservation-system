@@ -31,8 +31,15 @@ public class WaitingQueueRepositoryAdapter implements WaitingQueueRepositoryPort
   }
 
   @Override
+  public void removeActiveQueue(String token) {
+    waitingQueueRepository.removeActiveQueue(token);
+  }
+
+  @Override
   public int batchActivate(int count) {
     return waitingQueueSchedulerRepository.batchActivate(count);
   }
+
+
 
 }

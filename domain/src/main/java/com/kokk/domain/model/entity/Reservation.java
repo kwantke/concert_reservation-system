@@ -1,5 +1,8 @@
 package com.kokk.domain.model.entity;
 
+import com.kokk.domain.converter.OutboxStatusConverter;
+import com.kokk.domain.converter.ReservationStatusConverter;
+import com.kokk.domain.enums.ReservationStatus;
 import com.kokk.domain.model.base.AuditingFields;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,10 +31,11 @@ public class Reservation extends AuditingFields {
   @Column(nullable = false)
   private Long totalPrice;
 
+  @Convert(converter = ReservationStatusConverter.class)
   @Column(nullable = false)
-  private int status;
+  private ReservationStatus status;
 
-  public static Reservation of(Long concertSessionId, Long userId, Long totalPrice, int status) {
+  public static Reservation of(Long concertSessionId, Long userId, Long totalPrice, ReservationStatus status) {
     return Reservation.builder()
             .concertSessionId(concertSessionId)
             .userId(userId)
@@ -40,4 +44,12 @@ public class Reservation extends AuditingFields {
             .build();
   }
 
+  public boolean isTemporaryReservation() {
+    return this.status == ReservationStatus.TEMPORARY_RESERVED;
+
+  }
+
+  public void updateReservationStatus() {
+    this.status = ReservationStatus.CONFIRMED;
+  }
 }
