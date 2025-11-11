@@ -64,7 +64,7 @@ sequenceDiagram
 
 <br>
 
-### 3. 콘서트 예약 가능 날짜 조회
+### 3. 콘서트 예약 가능 회차 조회
 ---
 ```mermaid
 sequenceDiagram
@@ -124,7 +124,7 @@ sequenceDiagram
 
 <br>
 
-### 5. 콘서트 회차의 좌석 조회
+### 5. 콘서트 회차의 좌석 예약
 ---
 ```mermaid
 sequenceDiagram
@@ -212,3 +212,4 @@ sequenceDiagram
 <br>
 
 <br>
+
