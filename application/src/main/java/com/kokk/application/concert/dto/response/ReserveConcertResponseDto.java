@@ -1,7 +1,7 @@
 package com.kokk.application.concert.dto.response;
 
 import com.kokk.domain.model.entity.Reservation;
-import com.kokk.domain.model.enums.ReservationStatus;
+import com.kokk.domain.enums.ReservationStatus;
 
 public record ReserveConcertResponseDto(
         Long concertSessionId,

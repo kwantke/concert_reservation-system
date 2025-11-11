@@ -1,4 +1,4 @@
-package com.kokk.domain.model.exception;
+package com.kokk.domain.exception;
 
 import lombok.Getter;
 

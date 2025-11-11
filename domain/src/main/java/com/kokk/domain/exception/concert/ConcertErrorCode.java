@@ -1,6 +1,6 @@
-package com.kokk.domain.model.exception.concert;
+package com.kokk.domain.exception.concert;
 
-import com.kokk.domain.model.exception.ErrorCode;
+import com.kokk.domain.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,16 +1,12 @@
 package com.kokk.infrastructure.queue.db.redis;
 
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.queue.WaitingQueueErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 import static com.kokk.infrastructure.queue.db.redis.WaitingQueueRepositoryImpl.*;
 

@@ -1,6 +1,6 @@
 package com.kokk.domain.converter;
 
-import com.kokk.domain.model.enums.OutboxStatus;
+import com.kokk.domain.enums.OutboxStatus;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

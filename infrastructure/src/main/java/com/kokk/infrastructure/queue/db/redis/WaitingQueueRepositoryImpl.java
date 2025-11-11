@@ -1,8 +1,8 @@
 package com.kokk.infrastructure.queue.db.redis;
 
-import com.kokk.domain.model.enums.QueueStatus;
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.queue.WaitingQueueErrorCode;
+import com.kokk.domain.enums.QueueStatus;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.queue.WaitingQueueErrorCode;
 import com.kokk.domain.model.valueObject.WaitingQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

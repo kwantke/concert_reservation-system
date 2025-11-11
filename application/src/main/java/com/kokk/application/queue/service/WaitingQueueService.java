@@ -1,10 +1,9 @@
 package com.kokk.application.queue.service;
 
-import com.kokk.application.queue.dto.response.GetWaitingQueueResponseDto;
 import com.kokk.application.queue.port.in.WaitingQueueServicePort;
 import com.kokk.application.queue.port.out.WaitingQueueRepositoryPort;
-import com.kokk.domain.model.provider.time.TimeProvider;
-import com.kokk.domain.model.provider.uuid.UUIDGenerator;
+import com.kokk.domain.provider.time.TimeProvider;
+import com.kokk.domain.provider.uuid.UUIDGenerator;
 import com.kokk.domain.model.valueObject.WaitingQueue;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

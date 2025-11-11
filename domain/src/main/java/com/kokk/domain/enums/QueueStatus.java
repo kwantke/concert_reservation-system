@@ -1,4 +1,4 @@
-package com.kokk.domain.model.enums;
+package com.kokk.domain.enums;
 
 import lombok.Getter;
 

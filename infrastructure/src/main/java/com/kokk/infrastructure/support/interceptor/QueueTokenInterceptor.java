@@ -1,8 +1,8 @@
 package com.kokk.infrastructure.support.interceptor;
 
 import com.kokk.application.queue.port.in.WaitingQueueServicePort;
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.queue.WaitingQueueErrorCode;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.queue.WaitingQueueErrorCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

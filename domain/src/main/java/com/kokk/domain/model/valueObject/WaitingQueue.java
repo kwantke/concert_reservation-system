@@ -1,6 +1,6 @@
 package com.kokk.domain.model.valueObject;
 
-import com.kokk.domain.model.enums.QueueStatus;
+import com.kokk.domain.enums.QueueStatus;
 import lombok.Builder;
 import lombok.Getter;
 

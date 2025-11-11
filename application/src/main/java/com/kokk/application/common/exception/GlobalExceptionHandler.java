@@ -1,8 +1,8 @@
 package com.kokk.application.common.exception;
 
 
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.ErrorResponse;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

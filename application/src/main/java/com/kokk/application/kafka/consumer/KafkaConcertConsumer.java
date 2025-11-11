@@ -3,9 +3,7 @@ package com.kokk.application.kafka.consumer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kokk.application.concert.port.in.OutboxServicePort;
-import com.kokk.domain.event.ConcertReservedEvent;
 import com.kokk.domain.model.entity.Outbox;
-import com.kokk.domain.model.enums.OutboxStatus;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -26,12 +24,12 @@ public class KafkaConcertConsumer {
 
 
   @RetryableTopic(
-          attempts = "4",                        // 최초 소비 + 3회 재시도 (= 총 4번)
+          attempts = "4",  // 최초 소비 + 3회 재시도 (= 총 4번)
           // delay: 처음 실패 후 2초 후 재시도 시작,
           // multiplier: 재시도할 때마다 기다리는 시간이 2배씩 증가,
           // maxDelay : 지연이 아무리 증가해도 이 값을 넘지 않음. 최대 30초까지만 증가하고 그 이상 늘지 않음
           backoff = @Backoff(delay = 2000, multiplier = 2.0, maxDelay = 30000),
-          autoCreateTopics = "true",            // KafkaAdmin 사용 시 retry/DLT 토픽 자동 생성
+          autoCreateTopics = "true",  // KafkaAdmin 사용 시 retry/DLT 토픽 자동 생성
           dltTopicSuffix = ".DLT", // Dead Letter Topic : 실패시 처리 경로
           retryTopicSuffix = ".retry",
           include = {

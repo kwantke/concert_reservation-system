@@ -11,7 +11,7 @@ import com.kokk.domain.event.ReservationEventPublisher;
 import com.kokk.domain.model.entity.ConcertSessionSeat;
 import com.kokk.domain.model.entity.Reservation;
 import com.kokk.domain.model.entity.ReservedSeat;
-import com.kokk.domain.model.enums.ReservationStatus;
+import com.kokk.domain.enums.ReservationStatus;
 import com.kokk.domain.validation.ReservationValidation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

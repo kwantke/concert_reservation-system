@@ -1,7 +1,7 @@
 package com.kokk.domain.model.entity;
 
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.concert.ConcertErrorCode;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.concert.ConcertErrorCode;
 import jakarta.persistence.Entity;
 import lombok.Getter;
 import jakarta.persistence.*;

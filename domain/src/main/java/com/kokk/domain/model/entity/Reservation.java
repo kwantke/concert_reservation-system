@@ -1,7 +1,6 @@
 package com.kokk.domain.model.entity;
 
 import com.kokk.domain.model.base.AuditingFields;
-import com.kokk.domain.model.enums.ReservationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -2,12 +2,11 @@ package com.kokk.infrastructure.concert.adapter;
 
 import com.kokk.application.concert.port.out.ConcertSessionRepositoryPort;
 import com.kokk.domain.model.entity.ConcertSession;
-import com.kokk.domain.model.provider.time.TimeProvider;
+import com.kokk.domain.provider.time.TimeProvider;
 import com.kokk.infrastructure.concert.db.ConcertSessionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor

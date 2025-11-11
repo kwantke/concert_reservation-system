@@ -1,4 +1,4 @@
-package com.kokk.domain.model.provider.time;
+package com.kokk.domain.provider.time;
 
 import java.time.LocalDateTime;
 

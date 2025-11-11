@@ -2,7 +2,7 @@ package com.kokk.domain.model.entity;
 
 import com.kokk.domain.converter.OutboxStatusConverter;
 import com.kokk.domain.model.base.AuditingFields;
-import com.kokk.domain.model.enums.OutboxStatus;
+import com.kokk.domain.enums.OutboxStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

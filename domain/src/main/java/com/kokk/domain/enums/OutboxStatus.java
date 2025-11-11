@@ -1,7 +1,7 @@
-package com.kokk.domain.model.enums;
+package com.kokk.domain.enums;
 
-import com.kokk.domain.model.exception.CoreException;
-import com.kokk.domain.model.exception.concert.ConcertErrorCode;
+import com.kokk.domain.exception.CoreException;
+import com.kokk.domain.exception.concert.ConcertErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

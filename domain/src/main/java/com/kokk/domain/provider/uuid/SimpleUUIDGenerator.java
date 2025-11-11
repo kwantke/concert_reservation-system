@@ -1,4 +1,4 @@
-package com.kokk.domain.model.provider.uuid;
+package com.kokk.domain.provider.uuid;
 
 import org.springframework.stereotype.Component;
 
