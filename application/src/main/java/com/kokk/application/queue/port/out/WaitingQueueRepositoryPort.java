@@ -1,0 +1,16 @@
+package com.kokk.application.queue.port.out;
+
+import com.kokk.domain.model.valueObject.WaitingQueue;
+
+public interface WaitingQueueRepositoryPort {
+
+  WaitingQueue createWaitingQueue(WaitingQueue waitingQueue);
+
+  WaitingQueue findByToken(String token);
+
+  void checkActivatedQueueByToken(String token);
+
+  int batchActivate(int count);
+
+  void removeActiveQueue(String token);
+}

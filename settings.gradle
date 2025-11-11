@@ -1,1 +1,6 @@
 rootProject.name = 'concert-reservation-system'
+
+include 'domain'
+include 'infrastructure'
+include 'application'
+include 'support'

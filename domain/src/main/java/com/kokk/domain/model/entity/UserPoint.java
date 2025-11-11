@@ -1,0 +1,23 @@
+package com.kokk.domain.model.entity;
+
+import com.kokk.domain.model.base.AuditingFields;
+import lombok.Getter;
+import jakarta.persistence.*;
+
+@Getter
+@Entity
+public class UserPoint extends AuditingFields {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(nullable = false)
+  private Long userId;
+
+  @Column(nullable = false)
+  private int amount;
+
+  @Version
+  private int version;
+}
