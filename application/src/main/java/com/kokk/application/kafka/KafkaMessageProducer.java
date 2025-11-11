@@ -3,7 +3,6 @@ package com.kokk.application.kafka;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kokk.domain.event.ConcertReservedEvent;
-import com.kokk.domain.model.entity.Reservation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +27,7 @@ public class KafkaMessageProducer{
   public <T> void send(String topic, String key, T message) {
     try {
       String json = objectMapper.writeValueAsString(message);
-      kafkaTemplate.send(topic, String.valueOf(key), message);
+      kafkaTemplate.send(topic, String.valueOf(key), json);
       log.info("Message sent to topic: {}, key: {}, message: {}", topic, key, json);
     } catch (JsonProcessingException e) {
       throw new RuntimeException("Failed to serialize message", e);

@@ -28,14 +28,18 @@ spring:
     bootstrap-servers: localhost:9092
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    properties:
+      spring.json.add.type.headers: true # 타입 헤더를 넣어 컨슈머가 타입을 알아낼 수 있게 함(기본값 true)
     consumer:
       group-id: concert-consumer-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       auto-offset-reset: earliest # 토픽을 읽을때 가장 예전 offset부터 읽기
       enable-auto-commit: false # consumer에서 응답 처리를 수동 ack 모드 사용 (ack.acknowledge() 필요)
       properties:
+        spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+        spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.json.trusted.packages: "com.kokk.application.kafka,*" # @KafkaListener 이벤트 클래스가 들어있는 패키지를 신뢰 패키지로 등록
     topic:
       reserve: concert-reserve
