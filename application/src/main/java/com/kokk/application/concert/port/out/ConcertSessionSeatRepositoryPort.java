@@ -11,4 +11,6 @@ public interface ConcertSessionSeatRepositoryPort {
   List<ConcertSessionSeat> findByConcertSessionIdAndSeatIdInAndReservedFalse(Long concertSessionId, List<Long> seatIds);
 
   void saveAll(List<ConcertSessionSeat> concertSessionSeats);
+
+  long countReservedSeats(Long screeningId);
 }

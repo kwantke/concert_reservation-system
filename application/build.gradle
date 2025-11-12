@@ -18,4 +18,5 @@ dependencies {
   //Kafka
   implementation 'org.springframework.kafka:spring-kafka'
 
+  implementation 'org.redisson:redisson-spring-boot-starter:3.44.0'
 }

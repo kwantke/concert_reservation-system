@@ -33,14 +33,16 @@ public class ReservationService implements ReservationServicePort {
   private final ReservationEventPublisherPort reservationEventPublisherPort;
 
   private final ReservationValidation reservationValidation;
-  @Transactional
+
   @Override
   public ReserveConcertResponseDto reserveConcert(ReserveConcertRequest request) {
     Long concertSessionId = request.concertSessionId();
     Long userId = request.userId();
 
+    // 좌석 예약 여부 확인
     List<ConcertSessionSeat> concertSessionSeats = validateReservationConstraints(concertSessionId, userId, request.seatIds());
 
+    // 죄석 예약
     Reservation reservation = reserveConcertSeat(concertSessionId, userId, concertSessionSeats);
 
     return ReserveConcertResponseDto.from(reservation, concertSessionSeats);
