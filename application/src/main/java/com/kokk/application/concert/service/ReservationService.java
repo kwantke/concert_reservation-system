@@ -7,7 +7,8 @@ import com.kokk.application.concert.port.out.ConcertSessionSeatRepositoryPort;
 import com.kokk.application.concert.port.out.ReservationRepositoryPort;
 import com.kokk.application.concert.port.out.ReservedSeatRepositoryPort;
 import com.kokk.domain.event.ConcertReservedEvent;
-import com.kokk.domain.event.ReservationEventPublisher;
+
+import com.kokk.application.concert.port.out.messaging.ReservationEventPublisherPort;
 import com.kokk.domain.exception.CoreException;
 import com.kokk.domain.exception.concert.ConcertErrorCode;
 import com.kokk.domain.model.entity.ConcertSessionSeat;
@@ -29,7 +30,7 @@ public class ReservationService implements ReservationServicePort {
   private final ReservationRepositoryPort reservationRepositoryPort;
   private final ReservedSeatRepositoryPort reservedSeatRepositoryPort;
 
-  private final ReservationEventPublisher reservationEventPublisher;
+  private final ReservationEventPublisherPort reservationEventPublisherPort;
 
   private final ReservationValidation reservationValidation;
   @Transactional
@@ -71,7 +72,7 @@ public class ReservationService implements ReservationServicePort {
     updateConcertSessionSeat(concertSessionSeats);
 
     // 콘서트 예약 이벤트 발행
-    reservationEventPublisher.publish(new ConcertReservedEvent(String.valueOf(reservationId), reservation));
+    reservationEventPublisherPort.publish(new ConcertReservedEvent(String.valueOf(reservationId), reservation));
 
     return reservation;
   }

@@ -1,7 +1,8 @@
-package com.kokk.application.kafka;
+package com.kokk.infrastructure.concert.adapter.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kokk.application.concert.port.out.messaging.KafkaMessageProducerPort;
 import com.kokk.domain.event.ConcertReservedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class KafkaMessageProducer{
+public class KafkaMessageProducer implements KafkaMessageProducerPort {
   private final KafkaTemplate<String, Object> kafkaTemplate;
   private final ObjectMapper objectMapper;
 

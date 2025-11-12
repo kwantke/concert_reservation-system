@@ -1,10 +1,10 @@
-package com.kokk.application.concert.event;
+package com.kokk.application.concert.usecase.messaging;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kokk.application.concert.port.in.OutboxServicePort;
-import com.kokk.application.kafka.KafkaMessageProducer;
+
+import com.kokk.application.concert.port.out.messaging.KafkaMessageProducerPort;
 import com.kokk.domain.event.ConcertReservedEvent;
-import com.kokk.domain.event.ReservationEventPublisher;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -17,7 +17,7 @@ import org.springframework.transaction.event.TransactionalEventListener;
 @RequiredArgsConstructor
 public class ReservationEventListener {
   private final OutboxServicePort outboxServicePort;
-  private final KafkaMessageProducer kafkaMessageProducer;
+  private final KafkaMessageProducerPort kafkaMessageProducerPort;
 
   @TransactionalEventListener(phase = TransactionPhase.BEFORE_COMMIT)
   public void saveOutbox(final ConcertReservedEvent event) throws JsonProcessingException {
@@ -28,7 +28,7 @@ public class ReservationEventListener {
   @Async
   @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
   public void handle(final ConcertReservedEvent event) {
-    kafkaMessageProducer.publish(event);
+    kafkaMessageProducerPort.publish(event);
   }
 
 }

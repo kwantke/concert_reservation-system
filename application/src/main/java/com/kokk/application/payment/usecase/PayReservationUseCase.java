@@ -20,7 +20,7 @@ public class PayReservationUseCase {
   private final WaitingQueueServicePort waitingQueueServicePort;
 
 
-  @Transactional
+
   public void payReservation(String token, PaymentRequestDto request) {
     // 예약 확인
     Reservation reservation = reservationServicePort.getReservation(request.reservationId());
