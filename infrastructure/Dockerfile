@@ -3,7 +3,7 @@ FROM eclipse-temurin:21-jre AS runtime
 WORKDIR /app
 
 # ✅ 8. 빌드된 JAR 파일 복사
-COPY build/libs/myapp.jar app.jar
+COPY build/libs/*.jar app.jar
 
 ARG ENVIRONMENT=dev
 

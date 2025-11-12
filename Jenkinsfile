@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             agent any  // ✅ Checkout 단계에서는 노드 할당 필요
             steps {
-                git branch: 'dev', url: 'https://github.com/kwantke/lock_study.git'
+                git branch: 'develop', url: 'https://github.com/kwantke/concert_reservation-system.git'
             }
         }
         stage('Gradle Build') {
@@ -13,7 +13,7 @@ pipeline {
             steps {
                 sh 'chmod +x gradlew'
                 sh './gradlew dependencies --no-daemon'
-                sh './gradlew clean build -x test --no-daemon --stacktrace'
+                sh './gradlew :infrastructure:clean :infrastructure:bootJar -x test --no-daemon --stacktrace'
             }
         }
         stage('Docker Build') {
@@ -32,7 +32,11 @@ pipeline {
                     }
                 }
                 sh """
-                    docker build --build-arg ENVIRONMENT=${params.ENVIRONMENT} -t kwangko/concert:${params.ENVIRONMENT}_${imageTag} .
+                    docker build \
+                        -f infrastructure/Dockerfile \
+                        --build-arg ENVIRONMENT=${params.ENVIRONMENT} \
+                        -t kwangko/concert:${params.ENVIRONMENT}_${imageTag} \
+                        infrastructure
                 """
             }
         }
@@ -49,4 +53,3 @@ pipeline {
         }
     }
 }
-
