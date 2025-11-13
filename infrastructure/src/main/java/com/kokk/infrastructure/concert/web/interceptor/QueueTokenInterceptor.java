@@ -1,4 +1,4 @@
-package com.kokk.infrastructure.support.interceptor;
+package com.kokk.infrastructure.concert.web.interceptor;
 
 import com.kokk.application.queue.port.in.WaitingQueueServicePort;
 import com.kokk.domain.exception.CoreException;

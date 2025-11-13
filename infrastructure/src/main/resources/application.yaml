@@ -1,5 +1,10 @@
 server:
   port: 8080
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
 
 spring:
   datasource:
@@ -11,7 +16,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none # Hibernate가 DDL 실행하지 않음
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -45,6 +50,7 @@ spring:
       reserve: concert-reserve
     listener:
       ack-mode: MANUAL # 배치 처리 안 쓰면 기본 그대로
+
 logging:
   level:
     org.hibernate.SQL: debug                # SQL
