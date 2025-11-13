@@ -1,6 +1,6 @@
 package com.kokk.infrastructure.payment.adapter;
 
-import com.kokk.application.payment.dto.response.PaymentRepositoryPort;
+import com.kokk.application.payment.port.out.PaymentRepositoryPort;
 import com.kokk.domain.model.entity.Payment;
 import com.kokk.infrastructure.payment.db.PaymentRepository;
 import lombok.RequiredArgsConstructor;
