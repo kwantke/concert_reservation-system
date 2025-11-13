@@ -43,3 +43,6 @@ dependencies {
   annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
 }
+tasks.named('bootJar') {
+  archiveFileName = 'myapp.jar'
+}
