@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 
 
 public record CreateWaitingQueueResponseDto(
-        @Schema(name = "대기열 사용자ID")
+        @Schema(name = "대기열 사용자 ID")
         Long userId,
         @Schema(name = "대기열 토큰")
         String token,
-        @Schema
+        @Schema(name = "생성 날짜")
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {

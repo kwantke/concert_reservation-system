@@ -4,11 +4,10 @@ import com.kokk.domain.model.valueObject.WaitingQueue;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 public record GetWaitingQueueResponseDto(
-        @Schema(name = "대기열 사용자ID")
+        @Schema(name = "대기열 사용자 ID")
         Long userId,
         @Schema(name = "대기열 상태")
         String status,
-
         @Schema(name = "대기 번호")
         Long waitingNum
 ) {
