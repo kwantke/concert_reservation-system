@@ -53,9 +53,8 @@ spring:
 
 logging:
   level:
-    org.hibernate.SQL: debug                # SQL
-    org.hibernate.orm.jdbc.bind: trace      # ← 바인드 파라미터 값
-    org.hibernate.orm.jdbc.extract: off   # (선택) 결과 추출 로깅
+    p6spy: DEBUG # 깔끔한 쿼리 출력
+  config: classpath:logging/logback.xml
 
 # Actuator 설정
 management:
@@ -68,3 +67,8 @@ management:
       access: read-only        # none | read-only | unrestricted
     prometheus:
       access: read-only
+
+
+logstash:
+  host: localhost
+  port: 5044

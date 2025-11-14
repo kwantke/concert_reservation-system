@@ -1,0 +1,125 @@
+<configuration>
+  <property name="LOG_FILE" value="application.log"/>
+
+  <springProperty scope="context" name="LOGSTASH_HOST"
+                  source="logstash.host"
+                  defaultValue="localhost"/>
+  <springProperty scope="context" name="LOGSTASH_PORT"
+                  source="logstash.port"
+                  defaultValue="5044"/>
+
+  <!-- Hibernate 트랜잭션 관련 디버그 로그 줄이기 -->
+  <logger name="org.hibernate.resource.transaction.backend.jdbc.internal"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- Spring Kafka Listener 컨테이너 DEBUG 로그 숨기기 -->
+  <logger name="org.springframework.kafka.listener.KafkaMessageListenerContainer"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- Kafka Config 로그 끄기 -->
+  <logger name="org.apache.kafka"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- Redisson DNSMonitor DEBUG 로그 숨기기 -->
+  <logger name="org.redisson.connection.DNSMonitor"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- Spring Actuator Web endpoint mapping 디버그 숨기기 -->
+  <logger name="org.springframework.boot.actuate.endpoint.web.servlet"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- Spring MVC 내부 Request/Response 처리 디버그 숨기기 -->
+  <logger name="org.springframework.web.servlet.mvc.method.annotation"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- DispatcherServlet 디버그 숨기기 -->
+  <logger name="org.springframework.web.servlet.DispatcherServlet"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- DefaultListableBeanFactory DEBUG 로그 숨기기 -->
+  <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+  <logger name="org.springframework.data.convert.CustomConversions"
+          level="OFF"
+          additivity="false"/>
+
+  <!-- 콘솔 출력 -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} local %-5level [%thread] %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <logger name="org.apache.kafka.clients.consumer.internals.ConsumerCoordinator"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="LOGSTASH"/>
+  </logger>
+
+  <!-- 파일 출력 -->
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_FILE}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>application.%d{yyyy-MM-dd_HH-mm}.log.gz</fileNamePattern>
+      <maxHistory>5</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- Logstash로 전송할 Appender-->
+  <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>${LOGSTASH_HOST}:${LOGSTASH_PORT}</destination>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+  </appender>
+
+  <!-- Logger 설정 -->
+  <root level="DEBUG">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE" />
+    <appender-ref ref="LOGSTASH"/>
+  </root>
+</configuration>
