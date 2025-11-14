@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 public class WaitingQueueScheduler {
   private final WaitingQueueServicePort waitingQueueServicePort;
 
-  @Scheduled(fixedDelay = 10000) // 10초 마다 수행
+/*  @Scheduled(fixedDelay = 10000) // 10초 마다 수행
   public void activateWaitingQueue() {
     log.info("대기열 활성화 스케쥴러 실행");
     final int count = waitingQueueServicePort.batchActivate(3000);
     log.info("✅ 활성화 완료: {}명", count);
-  }
+  }*/
 }

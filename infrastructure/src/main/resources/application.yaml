@@ -56,3 +56,15 @@ logging:
     org.hibernate.SQL: debug                # SQL
     org.hibernate.orm.jdbc.bind: trace      # ← 바인드 파라미터 값
     org.hibernate.orm.jdbc.extract: off   # (선택) 결과 추출 로깅
+
+# Actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus   # 웹으로 노출할 엔드포인트
+  endpoint:
+    metrics:
+      access: read-only        # none | read-only | unrestricted
+    prometheus:
+      access: read-only

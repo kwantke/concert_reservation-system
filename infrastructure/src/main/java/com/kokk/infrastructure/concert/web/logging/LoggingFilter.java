@@ -13,7 +13,6 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -103,6 +102,7 @@ public class LoggingFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) {
     String p = request.getRequestURI();
-    return p.startsWith("/swagger-ui") || p.startsWith("/v3/api-docs") || p.startsWith("/actuator/health");
+    return p.startsWith("/swagger-ui") || p.startsWith("/v3/api-docs") || p.startsWith("/actuator/health")
+            || p.startsWith("/actuator/prometheus")|| p.startsWith("/metrics");
   }
 }
