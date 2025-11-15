@@ -51,10 +51,21 @@ spring:
     listener:
       ack-mode: MANUAL # 배치 처리 안 쓰면 기본 그대로
 
+
 logging:
   level:
     p6spy: DEBUG # 깔끔한 쿼리 출력
-  config: classpath:logging/logback.xml
+  config: classpath:logging/logback-kafka.xml
+
+# Kafka Logging 설정
+kafka:
+  logging:
+    topic: concert-logs
+
+# springboot에서 바로 logstash로 로그 전달할 경우
+#logstash:
+#  host: 192.168.0.20
+#  port: 5044
 
 # Actuator 설정
 management:
@@ -69,6 +80,3 @@ management:
       access: read-only
 
 
-logstash:
-  host: localhost
-  port: 5044

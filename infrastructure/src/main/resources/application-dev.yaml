@@ -54,7 +54,16 @@ spring:
 logging:
   level:
     p6spy: INFO
-  config: classpath:logging/logback-dev.xml
+  config: classpath:logging/logback-kafka-dev.xml
+# Kafka Logging 설정
+kafka:
+  logging:
+    topic: concert-logs
+
+# springboot에서 바로 logstash로 로그 전달할 경우
+#logstash:
+#  host: 192.168.0.20
+#  port: 5044
 
 # Actuator 설정
 management:
@@ -68,6 +77,3 @@ management:
     prometheus:
       access: read-only
 
-logstash:
-  host: 192.168.0.20
-  port: 5044

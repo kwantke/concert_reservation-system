@@ -50,6 +50,10 @@ dependencies {
   // P6spy : 깔끔한 포맷팅 쿼리 로그 출력
   implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 
+  // Kafka Client, Appender
+  implementation 'org.apache.kafka:kafka-clients:3.7.0'
+  implementation 'com.github.danielwegener:logback-kafka-appender:0.2.0-RC2'
+
 }
 
 tasks.named('bootJar') {
