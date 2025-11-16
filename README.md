@@ -46,23 +46,24 @@
   - 비동기 이벤트 기반 설계로 애플리케이션 부하를 최소화합니다.
   - Consumer Group 기반 멀티 인스턴스 Consumer 로 메시지를 분산 처리합니다.
 
-[아키텍처 구성 수행 확인]()
+#### [아키텍처 구성 수행 확인]()
 ---
 ### Jenkins Pipline 수행 결과
 - 
-<img width="520" height="252" alt="concert_jenkins_pipline" src="https://github.com/user-attachments/assets/de77d2cd-c553-431e-b463-a52a4c7c7000" />
+<img width="806" height="454" alt="concert_jenkins_pipline" src="https://github.com/user-attachments/assets/de77d2cd-c553-431e-b463-a52a4c7c7000" />
 
 ### ArgoCD Sync 확인
 - [Kubernetes Manifest 파일](https://github.com/kwantke/argocd/tree/main/kubernetes_manifest)
-<img width="763" height="327" alt="concert_argocd2" src="https://github.com/user-attachments/assets/4d4ee797-a831-46ef-8c05-35aa3f96d76d" />
+<img width="806" height="454" alt="concert_argocd2" src="https://github.com/user-attachments/assets/4d4ee797-a831-46ef-8c05-35aa3f96d76d" />
 
 ### Grafana 대시보드
 <img width="806" height="454" alt="kubernetes_grafana" src="https://github.com/user-attachments/assets/0f78037e-dd3b-4291-a77c-ae3ace1119c7" />
 
 ### Kibana 대시보드
-<img width="1908" height="812" alt="kibana_log2" src="https://github.com/user-attachments/assets/efb9c2ba-4046-4714-bbe4-eec76f1b5365" />
+<img width="806" height="454" alt="kibana_log2" src="https://github.com/user-attachments/assets/efb9c2ba-4046-4714-bbe4-eec76f1b5365" />
 
 
 ### 1. [Sequence Diagram](https://github.com/kwantke/concert_reservation-system/blob/develop/docs/SEQUENCE_DIAGRAM.md)
+
 
 
