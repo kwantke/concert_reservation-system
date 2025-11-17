@@ -33,4 +33,14 @@ public class ConcertSessionSeatRepositoryAdapter implements ConcertSessionSeatRe
   public void saveAll(List<ConcertSessionSeat> concertSessionSeats) {
     concertSessionSeatRepository.saveAll(concertSessionSeats);
   }
+
+  @Override
+  public long countReservedSeats(Long screeningId) {
+    return concertSessionSeatRepository.countByConcertSessionIdAndReservedIsTrue(screeningId);
+  }
+
+  @Override
+  public void save(ConcertSessionSeat concertSessionSeat) {
+    concertSessionSeatRepository.save(concertSessionSeat);
+  }
 }

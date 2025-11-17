@@ -1,4 +1,4 @@
-package com.kokk.application.kafka.consumer;
+package com.kokk.application.concert.usecase.messaging.consumer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

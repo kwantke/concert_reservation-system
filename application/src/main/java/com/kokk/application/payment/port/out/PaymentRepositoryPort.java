@@ -1,4 +1,4 @@
-package com.kokk.application.payment.dto.response;
+package com.kokk.application.payment.port.out;
 
 import com.kokk.domain.model.entity.Payment;
 

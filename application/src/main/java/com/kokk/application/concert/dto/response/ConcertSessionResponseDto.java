@@ -9,7 +9,7 @@ import java.util.List;
 public record ConcertSessionResponseDto(
 
         @Schema(name = "시즌 ID")
-        Long id,
+        Long sessionId,
         @Schema(name = "시작일시")
         LocalDateTime startDate
 ) {

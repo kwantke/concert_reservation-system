@@ -1,0 +1,136 @@
+<configuration scan="true" scanPeriod="180 seconds">
+  <property name="LOG_FILE" value="application.log"/>
+
+  <!-- application yml또는 application.properties 에 저장한 값을 바인딩 -->
+  <springProperty name="topic" source="kafka.logging.topic" defaultValue="concert-logs"/>
+  <springProperty name="kafka" source="spring.kafka.bootstrap-servers" defaultValue="localhost:9092"/>
+
+  <!-- Hibernate 트랜잭션 관련 디버그 로그 줄이기 -->
+  <logger name="org.hibernate.resource.transaction.backend.jdbc.internal"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- Spring Kafka Listener 컨테이너 DEBUG 로그 숨기기 -->
+  <logger name="org.springframework.kafka.listener.KafkaMessageListenerContainer"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- Kafka Config 로그 끄기 -->
+  <logger name="org.apache.kafka"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- Redisson DNSMonitor DEBUG 로그 숨기기 -->
+  <logger name="org.redisson.connection.DNSMonitor"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- Spring Actuator Web endpoint mapping 디버그 숨기기 -->
+  <logger name="org.springframework.boot.actuate.endpoint.web.servlet"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- Spring MVC 내부 Request/Response 처리 디버그 숨기기 -->
+  <logger name="org.springframework.web.servlet.mvc.method.annotation"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- DispatcherServlet 디버그 숨기기 -->
+  <logger name="org.springframework.web.servlet.DispatcherServlet"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- DefaultListableBeanFactory DEBUG 로그 숨기기 -->
+  <logger name="org.springframework.beans.factory.support.DefaultListableBeanFactory"
+          level="INFO"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+  <logger name="org.springframework.data.convert.CustomConversions"
+          level="OFF"
+          additivity="false"/>
+
+  <logger name="org.apache.kafka.clients.consumer.internals.ConsumerCoordinator"
+          level="WARN"
+          additivity="false">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="FILE"/>
+    <appender-ref ref="asyncKafkaAppender"/>
+  </logger>
+
+  <!-- 콘솔 출력 -->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>%date{yyyy-MM-dd:HH:mm:ss.SSS} dev %-5level %relative --- [%thread] %logger.%method\(%file:%line\) : %msg %n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- 파일 출력 -->
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_FILE}</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>application.%d{yyyy-MM-dd_HH-mm}.log.gz</fileNamePattern>
+      <maxHistory>5</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%date{yyyy-MM-dd:HH:mm:ss.SSS} dev %-5level %relative --- [%thread] %logger.%method\(%file:%line\) : %msg %n</pattern>
+    </encoder>
+  </appender>
+
+  <!-- kafkaAppender with Logstash -->
+  <appender name="logstashKafkaAppender" class="com.github.danielwegener.logback.kafka.KafkaAppender">
+    <topic>${topic}</topic>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <level>INFO</level>
+    </filter>
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <customFields>{"instanceId":"concert-1"}</customFields>
+    </encoder>
+    <deliveryStrategy class="com.github.danielwegener.logback.kafka.delivery.AsynchronousDeliveryStrategy"/>
+
+    <producerConfig>bootstrap.servers=${kafka}</producerConfig>
+  </appender>
+
+  <appender name="asyncKafkaAppender" class="ch.qos.logback.classic.AsyncAppender">
+    <appender-ref ref="logstashKafkaAppender"/>
+  </appender>
+
+
+
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE" />
+    <appender-ref ref="asyncKafkaAppender"/>
+  </root>
+
+</configuration>

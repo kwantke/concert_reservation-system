@@ -17,17 +17,18 @@ public class ReservedSeat extends AuditingFields {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+  @ManyToOne
+  @JoinColumn(name = "reservation_id", nullable = false)
+  private Reservation reservation;
 
-  @Column(nullable = false)
-  private Long reservationId;
+  @OneToOne
+  @JoinColumn(nullable = false)
+  private ConcertSessionSeat concertSessionSeat;
 
-  @Column(nullable = false)
-  private Long concertSessionSeatId;
-
-  public static ReservedSeat of(Long reservationId, Long concertSessionSeatId) {
+  public static ReservedSeat of(Reservation reservation, ConcertSessionSeat concertSessionSeat) {
     return ReservedSeat.builder()
-            .reservationId(reservationId)
-            .concertSessionSeatId(concertSessionSeatId)
+            .reservation(reservation)
+            .concertSessionSeat(concertSessionSeat)
             .build();
 
   }

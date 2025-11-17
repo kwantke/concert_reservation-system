@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 public enum ReservationStatus {
   TEMPORARY_RESERVED("임시 예약",1),
   CONFIRMED("예약 확정",2),
+  CANCELED("예약 취소",3)
   ;
   private final String statusName;
   private final int statusCode;

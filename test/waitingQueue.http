@@ -11,4 +11,4 @@ Content-Type: application/json
 GET http://localhost:8080/api/v1/waiting-queues
 Accept: application/json
 Content-Type: application/json
-QUEUE-TOKEN: bef2f93e-a342-4fb0-93ff-98086e1727e7
+QUEUE-TOKEN: a44141db-935b-43e6-afa2-3a3b5f277cf1

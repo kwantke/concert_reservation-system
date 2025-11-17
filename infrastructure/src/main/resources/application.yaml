@@ -1,5 +1,10 @@
 server:
   port: 8080
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
 
 spring:
   datasource:
@@ -11,7 +16,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none # Hibernate가 DDL 실행하지 않음
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
@@ -40,13 +45,38 @@ spring:
       properties:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
-        spring.json.trusted.packages: "com.kokk.application.kafka,*" # @KafkaListener 이벤트 클래스가 들어있는 패키지를 신뢰 패키지로 등록
+        spring.json.trusted.packages: "com.kokk.infrastructure.concert.adapter.messaging,*" # @KafkaListener 이벤트 클래스가 들어있는 패키지를 신뢰 패키지로 등록
     topic:
       reserve: concert-reserve
     listener:
       ack-mode: MANUAL # 배치 처리 안 쓰면 기본 그대로
+
+
 logging:
   level:
-    org.hibernate.SQL: debug                # SQL
-    org.hibernate.orm.jdbc.bind: trace      # ← 바인드 파라미터 값
-    org.hibernate.orm.jdbc.extract: off   # (선택) 결과 추출 로깅
+    p6spy: DEBUG # 깔끔한 쿼리 출력
+  config: classpath:logging/logback-kafka.xml
+
+# Kafka Logging 설정
+kafka:
+  logging:
+    topic: concert-logs
+
+# springboot에서 바로 logstash로 로그 전달할 경우
+#logstash:
+#  host: 192.168.0.20
+#  port: 5044
+
+# Actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus   # 웹으로 노출할 엔드포인트
+  endpoint:
+    metrics:
+      access: read-only        # none | read-only | unrestricted
+    prometheus:
+      access: read-only
+
+

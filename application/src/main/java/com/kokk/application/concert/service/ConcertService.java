@@ -4,6 +4,8 @@ import com.kokk.application.concert.port.in.ConcertServicePort;
 import com.kokk.application.concert.port.out.ConcertSessionRepositoryPort;
 import com.kokk.application.concert.port.out.ConcertSessionSeatRepositoryPort;
 import com.kokk.domain.model.entity.ConcertSession;
+import com.kokk.domain.model.entity.ConcertSessionSeat;
+import com.kokk.domain.model.entity.ReservedSeat;
 import com.kokk.domain.model.valueObject.CustomConcertSessionSeat;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,5 +28,15 @@ public class ConcertService implements ConcertServicePort {
   @Override
   public List<CustomConcertSessionSeat> findConcertSessionSeatsByConcertSessionId(Long concertSessionId) {
     return concertSessionSeatRepositoryPort.findConcertSessionSeatsByConcertSessionId(concertSessionId);
+  }
+
+  @Override
+  public void cancelTemporaryReservation(List<ReservedSeat> reservedSeats) {
+    reservedSeats.forEach(reservedSeat -> {
+        ConcertSessionSeat concertSessionSeat = reservedSeat.getConcertSessionSeat();
+        concertSessionSeat.updateReservedFalse();
+        concertSessionSeatRepositoryPort.save(concertSessionSeat);
+
+    });
   }
 }

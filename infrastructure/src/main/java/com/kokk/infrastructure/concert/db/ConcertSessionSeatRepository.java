@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ConcertSessionSeatRepository extends JpaRepository<ConcertSessionSeat, Long>, CustomConcertSessionSeatRepository {
   List<ConcertSessionSeat> findByConcertSessionIdAndSeatIdInAndReservedFalse(Long concertSessionId, List<Long> seatIds);
+
+  long countByConcertSessionIdAndReservedIsTrue(Long screeningId);
 }

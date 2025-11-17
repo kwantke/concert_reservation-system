@@ -7,7 +7,8 @@ import com.kokk.application.concert.port.out.ConcertSessionSeatRepositoryPort;
 import com.kokk.application.concert.port.out.ReservationRepositoryPort;
 import com.kokk.application.concert.port.out.ReservedSeatRepositoryPort;
 import com.kokk.domain.event.ConcertReservedEvent;
-import com.kokk.domain.event.ReservationEventPublisher;
+
+import com.kokk.application.concert.port.out.messaging.ReservationEventPublisherPort;
 import com.kokk.domain.exception.CoreException;
 import com.kokk.domain.exception.concert.ConcertErrorCode;
 import com.kokk.domain.model.entity.ConcertSessionSeat;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ReservationService implements ReservationServicePort {
@@ -29,20 +30,22 @@ public class ReservationService implements ReservationServicePort {
   private final ReservationRepositoryPort reservationRepositoryPort;
   private final ReservedSeatRepositoryPort reservedSeatRepositoryPort;
 
-  private final ReservationEventPublisher reservationEventPublisher;
+  private final ReservationEventPublisherPort reservationEventPublisherPort;
 
   private final ReservationValidation reservationValidation;
-  @Transactional
+
   @Override
   public ReserveConcertResponseDto reserveConcert(ReserveConcertRequest request) {
     Long concertSessionId = request.concertSessionId();
     Long userId = request.userId();
 
+    // 좌석 예약 여부 확인
     List<ConcertSessionSeat> concertSessionSeats = validateReservationConstraints(concertSessionId, userId, request.seatIds());
 
+    // 죄석 예약
     Reservation reservation = reserveConcertSeat(concertSessionId, userId, concertSessionSeats);
 
-    return ReserveConcertResponseDto.from(reservation);
+    return ReserveConcertResponseDto.from(reservation, concertSessionSeats);
   }
 
   @Override
@@ -59,19 +62,32 @@ public class ReservationService implements ReservationServicePort {
   }
 
 
+  @Override
+  public List<Reservation> getTemporaryReservationToBeExpired(int minutes) {
+    return reservationRepositoryPort.findByTemporaryReservationToBeExpired(minutes);
+  }
+
+  @Override
+  public void cancelTemporaryReservation(Reservation reservation) {
+    reservation.updateReservationStatusCanceled();
+
+    reservationRepositoryPort.save(reservation);
+  }
+
+
   private Reservation reserveConcertSeat(Long concertSessionId, Long userId, List<ConcertSessionSeat> concertSessionSeats) {
     // 예약 정보 저장후 데이터 반환
     Reservation reservation = saveReservation(concertSessionId, userId, concertSessionSeats);
     Long reservationId = reservation.getId();
 
     // 예약 좌석 정보 저장
-    saveReservedSeat(reservationId, concertSessionSeats);
+    saveReservedSeat(reservation, concertSessionSeats);
 
     // 콘서트 시즌 좌석 예약된 상태로 업데이트
     updateConcertSessionSeat(concertSessionSeats);
 
     // 콘서트 예약 이벤트 발행
-    reservationEventPublisher.publish(new ConcertReservedEvent(String.valueOf(reservationId), reservation));
+    reservationEventPublisherPort.publish(new ConcertReservedEvent(String.valueOf(reservationId), reservation));
 
     return reservation;
   }
@@ -100,9 +116,9 @@ public class ReservationService implements ReservationServicePort {
   }
 
   /** 예약 죄석 정보 저장*/
-  private void saveReservedSeat(Long reservationId, List<ConcertSessionSeat> concertSessionSeats) {
+  private void saveReservedSeat(Reservation reservation, List<ConcertSessionSeat> concertSessionSeats) {
     for (ConcertSessionSeat css : concertSessionSeats) {
-      ReservedSeat reservedSeat = ReservedSeat.of(reservationId, css.getConcertSessionId());
+      ReservedSeat reservedSeat = ReservedSeat.of(reservation, css);
       reservedSeatRepositoryPort.save(reservedSeat);
     }
   }
