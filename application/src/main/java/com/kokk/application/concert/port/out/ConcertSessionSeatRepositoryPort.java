@@ -13,4 +13,6 @@ public interface ConcertSessionSeatRepositoryPort {
   void saveAll(List<ConcertSessionSeat> concertSessionSeats);
 
   long countReservedSeats(Long screeningId);
+
+  void save(ConcertSessionSeat concertSessionSeat);
 }

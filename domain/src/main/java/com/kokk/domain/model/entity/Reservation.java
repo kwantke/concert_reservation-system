@@ -10,6 +10,8 @@ import lombok.Getter;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -35,6 +37,9 @@ public class Reservation extends AuditingFields {
   @Column(nullable = false)
   private ReservationStatus status;
 
+  @OneToMany(mappedBy = "reservation")
+  private List<ReservedSeat> reservedSeats;
+
   public static Reservation of(Long concertSessionId, Long userId, Long totalPrice, ReservationStatus status) {
     return Reservation.builder()
             .concertSessionId(concertSessionId)
@@ -51,5 +56,8 @@ public class Reservation extends AuditingFields {
 
   public void updateReservationStatus() {
     this.status = ReservationStatus.CONFIRMED;
+  }
+  public void updateReservationStatusCanceled() {
+    this.status = ReservationStatus.CANCELED;
   }
 }

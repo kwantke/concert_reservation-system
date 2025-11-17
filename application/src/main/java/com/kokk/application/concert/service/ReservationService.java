@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class ReservationService implements ReservationServicePort {
@@ -59,6 +59,19 @@ public class ReservationService implements ReservationServicePort {
     reservation.updateReservationStatus();
     reservationRepositoryPort.save(reservation);
 
+  }
+
+
+  @Override
+  public List<Reservation> getTemporaryReservationToBeExpired(int minutes) {
+    return reservationRepositoryPort.findByTemporaryReservationToBeExpired(minutes);
+  }
+
+  @Override
+  public void cancelTemporaryReservation(Reservation reservation) {
+    reservation.updateReservationStatusCanceled();
+
+    reservationRepositoryPort.save(reservation);
   }
 
 

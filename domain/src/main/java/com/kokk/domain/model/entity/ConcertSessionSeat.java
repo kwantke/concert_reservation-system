@@ -35,4 +35,8 @@ public class ConcertSessionSeat {
     }
     this.reserved = true;
   }
+
+  public void updateReservedFalse() {
+    this.reserved = false;
+  }
 }
