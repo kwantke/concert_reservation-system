@@ -21,14 +21,14 @@ sequenceDiagram
 
   사용자 ->> UseCase: 대기열 토큰 발급 요청
 
-  alt 토큰 발급
-    UseCase ->> Queue: 대기열 토큰 발급 요청 (userId)
-    Queue ->> QueueService: 토큰 생성 요청
-    QueueService -->> Queue: 생성된 토큰 반환
-    Queue ->> Queue: 신규 대기열 저장 (대기 상태로 저장)
-    Queue -->> UseCase: 신규 대기열 반환
-    UseCase -->> 사용자: 대기열 정보 반환
-  end
+
+  UseCase ->> Queue: 대기열 토큰 발급 요청 (userId)
+  Queue ->> QueueService: 토큰 생성 요청
+  QueueService -->> Queue: 생성된 토큰 반환
+  Queue ->> Queue: 신규 대기열 저장 (대기 상태로 저장)
+  Queue -->> UseCase: 신규 대기열 반환
+  UseCase -->> 사용자: 대기열 정보 반환
+
 ```
 
 ### Description
@@ -212,4 +212,5 @@ sequenceDiagram
 <br>
 
 <br>
+
 
