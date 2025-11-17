@@ -1,6 +1,11 @@
 # 콘서트 예매 시스템 API 명세
 
-## 목차
+## API 문서 (Swagger)
+
+<img width="900" height="700" alt="swagger_image" src="https://github.com/user-attachments/assets/c81fc01f-aac6-4127-9108-1473344c4c4b" />
+
+
+## API 상세
 1. [대기열 토큰 발급](#1-대기열-토큰-발급)
 2. [대기열 정보 조회](#2-대기열-정보-조회)
 3. [콘서트 회차 조회](#3-콘서트-회차-조회)
