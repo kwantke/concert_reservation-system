@@ -74,25 +74,29 @@ pipeline {
             git checkout main || git checkout -b main
             git pull --rebase
           ''')
+          // 디버깅: 변경 전후 image 라인 출력
+          sh('echo BEFORE && grep -n "image:" -n kubernetes_manifest/deployment.yaml | head -3')
 
           // sed 부분도 문자열 결합으로 FULL_IMAGE만 주입
           sh('sed -i -E \'s|(^[[:space:]]*-[[:space:]]*image:[[:space:]]*).*$|\\1' + env.FULL_IMAGE + '|\' kubernetes_manifest/deployment.yaml')
 
-          // 디버깅: 변경 전후 image 라인 출력
-          sh('echo BEFORE && grep -n "image:" -n kubernetes_manifest/deployment.yaml | head -3')
           sh('echo AFTER  && grep -n "image:" -n kubernetes_manifest/deployment.yaml | head -3')
-          // 커밋/푸시
-          sh('''
-            if ! git diff --quiet; then
-            git add -A
-            git commit -m "update! image"
-            else
-            echo "No changes to commit."
-            fi
-          ''')
 
-          // commit 메시지에 FULL_IMAGE 포함
-          sh('git commit -m "update! image: ' + env.FULL_IMAGE + ' by Jenkins" || true')
+          // 커밋/푸시
+          script {
+                def commitMsg = "update! image: ${env.FULL_IMAGE} by Jenkins"
+
+                sh("""#!/bin/bash
+                  set -e
+                  if ! git diff --quiet; then
+                    git add -A
+                    git commit -m "${commitMsg}" || true
+                  else
+                    echo "No changes to commit."
+                  fi
+                """)
+            }
+
 
           // 브랜치명에 따라 push
           // 푸시 직전 최신화 + 재시도(경합에 안전)
