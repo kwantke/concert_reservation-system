@@ -19,7 +19,7 @@
 - Kubernetes
 - Argocd
 - Prometheus
-- grafaka
+- grafana
 - IntelliJ Http Request
 
 ---
@@ -50,6 +50,7 @@
 
 #### [아키텍처 구성 수행](https://github.com/kwantke/concert_reservation-system/blob/develop/docs/ARCHITECTURE_CONFIGURATION_EXCUTION.md)
 ---
+
 
 
 
