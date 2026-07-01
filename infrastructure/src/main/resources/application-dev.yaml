@@ -34,6 +34,11 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      compression-type: lz4
+      acks: 1
+      properties:
+        linger.ms: 10
+        batch.size: 65536
     properties:
       spring.json.add.type.headers: true # 타입 헤더를 넣어 컨슈머가 타입을 알아낼 수 있게 함(기본값 true)
     consumer:
